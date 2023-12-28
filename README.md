@@ -46,3 +46,4 @@ https://github.com/Hakeemog/iac-gke-waficash-project-/blob/development/loadbalan
 4. Access argocd api server using the external IP address:80 i.e 34.148.106.249:80 The 
 5. Get argocd password using: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d
 Note that the default username is admin
+https://github.com/Hakeemog/iac-gke-waficash-project-/blob/development/argocdlogin.jpg

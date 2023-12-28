@@ -22,6 +22,7 @@ c. Create a Service account
 * Click on the newly created service account and assign a key. Download the key in json format and save it securely
 d.Install and initialize gcloud SDK
 * For terraform to run opeartions and create GKE cluster on our GCP account gcloud SDK tool needs to be configured using the documentation https://cloud.google.com/sdk/docs/install-sdk
+* https://github.com/Hakeemog/iac-gke-waficash-project-/blob/development/login.png
 e. Install kubectl
 * Follow the documentation https://kubernetes.io/docs/tasks/tools/
 f. Install terraform https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/install-cli?in=terraform%2Fgcp-get-started

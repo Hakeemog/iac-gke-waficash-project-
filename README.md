@@ -48,3 +48,53 @@ https://github.com/Hakeemog/iac-gke-waficash-project-/blob/development/loadbalan
 5. Get argocd password using: kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath='{.data.password}' | base64 -d
 Note that the default username is admin
 https://github.com/Hakeemog/iac-gke-waficash-project-/blob/development/argocdlogin.jpg
+
+Response to Questions
+======================
+Question: Explain how you would scale the application within the GKE cluster.
+
+Scaling applications is very important in other to respond to increase in customer request. You can manually scale your application by adjusting the number of replicas for a Deployment or StatefulSet. This however is not best practice. 
+Horizontal pod Autoscaling (HPA) is best practice as it is automated. HPA automatically adjusts the number of replicas based on observed CPU utilization or other custom metrics. This is done using kubernetes deployment file
+
+Question: Outline the measures taken to ensure the reliability of the application on GKE, considering factors like fault tolerance and high availability.
+- Security and cluster access control
+- Deployment of multiple replicas
+- Node pools and cluster autoscaler
+- Monitoring and alerting tools should be setup using tools like grafana and prometheus or third party tool like datadog, newrelic etc
+- Load balancers sould be emplyed for efficient traffic distribution among pods and pods health check
+- Backup and disaster recovery
+- Occasional node maintainance and updates
+
+Question: Elaborate on the security measures that can be implemented to safeguard the application
+
+- Identity and access management is key to restrict users access. The principle of least priviledge should be followed when assigning role to service account. Give access to users based on there role (RBAC) and what they need to do
+- Network Security: Implement Kubernetes Network Policies to control the communication between pods.Define policies based on namespace, labels, and pods.
+- VPC Service Controls: security parameters around cloud resources
+- Authentication and authorisation with Role-Based Access Control (RBAC). Utilize RBAC to define fine-grained access controls within your GKE cluster.
+- Use Google Cloud Secret Manager to securely store and manage sensitive information, such as API keys and credentials.
+- Enable and configure Cloud Logging and Monitoring to capture and analyze logs and metrics. Set up alerts for suspicious activities.
+- Use TLS/SSL certificates to encrypt communication between clients and services.
+
+Question: Discuss how you would handle migration , secrets and environemnt varaiables
+
+For application migration
+- Application Containerization using Docker. This ensures consistency and portability across different environments.
+- If the application is to be deployed into Kubernetes, manifest files (YAML) that define application's deployment, services, and other resources need to be written
+- Persistent Storage: If the application relies on persistent storage, ensure a smooth transition by migrating data or using external storage solutions like Google Cloud Storage or Persistent Disks.
+- Gradual rollout strategy will ensure high availability of your infrastructure deploying the application in stages, and validating its behavior at each step.
+- Conduct thorough testing in a staging environment before migrating to production.
+-  Implement monitoring and logging to detect and address issues during the migration process.
+
+Secrets Management is key to ensuring the security of your applications
+Secrets should not be commited to github under no condition. Leverage Google Cloud Secret Manager to store and manage sensitive information. Enable encryption at rest and in transit for both application data and secrets.
+Implement rotation policies for secrets to regularly update sensitive information.
+Automate secret rotation where possible. Also, apply strict access controls to secrets, limiting who can read or modify them
+
+Environmental variables,
+In kubernetes, some environmental variables like DB password and connection strings are treated as secrets. Utilize Kubernetes Secrets or Google Cloud Secret Manager for this purpose. Store configuration files in a secure location, and mount them into your pods as volumes.
+
+
+
+
+
+
